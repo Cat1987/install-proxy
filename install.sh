@@ -92,7 +92,12 @@ if [ $model = "s" ]; then
   } >> /etc/systemd/system/shadowsocks-server.service
   systemctl start shadowsocks-server
   systemctl enable shadowsocks-server
-
+  # Open ports
+  sudo firewall-cmd --state
+  firewall-cmd --permanent --zone=public --add-port=8388/tcp
+  firewall-cmd --reload
+  firewall-cmd --list-ports
+  reboot
 elif [ $model = "ns" ]; then
   echo "Install model is: Install Nginx and ShadowSocks :)"
 else
