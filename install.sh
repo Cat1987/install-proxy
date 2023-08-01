@@ -67,12 +67,12 @@ echo "Get local private IP"
 localIP=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
 echo "Local private IP is $localIP "
 
-sw_json_conf_start='{"server":'
-sw_json_conf_end=',"local_address":"127.0.0.1","local_port":1080,"port_password":{"8388":"520Xyx0123",
-                 "8389":"520Xyx0123","8390":"do_not_share_the_password","8391":"520Xyx0123"},"timeout":300,"method":"aes-256-gcm","fast_open":false}'                
+sw_json_conf_start='{"server":"'
+sw_json_conf_end='","local_address":"127.0.0.1","local_port":1080,"port_password":{"8388":"520Xyx0123",
+                 "8389":"520Xyx0123","8390":"do_not_share_the_password","8391":"520Xyx0123"},"timeout":300,"method":"aes-256-gcm","fast_open":false}'
 sw_json_conf=$sw_json_conf_start$localIP$sw_json_conf_end
 
-echo $e=sw_json_conf
+echo $sw_json_conf
 
 if [ $model = "s" ]; then
   echo "Now Install ShadowSocks :)"
