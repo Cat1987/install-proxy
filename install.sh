@@ -71,7 +71,7 @@ sw_json_conf='{"server":'+ $localIP + ',"local_address":"127.0.0.1","local_port"
 
 if [ $model = "s" ]; then
   echo "Now Install ShadowSocks :)"
-  pip3 install -y https://github.com/shadowsocks/shadowsocks/archive/master.zip
+  pip3 install  https://github.com/shadowsocks/shadowsocks/archive/master.zip
   ssserver --version
   echo "$sw_json_conf" > /etc/shadowsocks.json
 
@@ -94,3 +94,7 @@ else
   echo "[ERROR] Invalid parameter, choose the correct value. 's' or 'ns' "
     exit
 fi
+
+
+
+
