@@ -80,30 +80,37 @@ BuildShadowsockConfig() {
   sw_json_conf_end='","local_address":"127.0.0.1","local_port":1080,"port_password":{"8388":"520Xyx0123",
                    "8389":"520Xyx0123","8390":"do_not_share_the_password","8391":"520Xyx0123"},"timeout":300,"method":"aes-256-gcm","fast_open":false}'
   sw_json_conf=$sw_json_conf_start$localIP$sw_json_conf_end
-
   echo "$sw_json_conf"
-  return "$sw_json_conf"
+  echo "$sw_json_conf" >/etc/shadowsocks.json
 }
 
-InstallShadowsockAndStart() {
+InstallShadowsock() {
   echo "Now Install ShadowSocks :)"
   pip3 install https://github.com/shadowsocks/shadowsocks/archive/master.zip
   ssserver --version
-  echo "$sw_json_conf" >/etc/shadowsocks.json
-
-  {
-    echo "[Unit]"
-    echo "Description=Shadowsocks Server"
-    echo "After=network.target"
-    echo "[Service]"
-    echo "ExecStart=/usr/local/bin/ssserver -c /etc/shadowsocks.json"
-    echo "Restart=on-abort"
-    echo "[Install]"
-    echo "WantedBy=multi-user.target"
-  } >>/etc/systemd/system/shadowsocks-server.service
-  systemctl start shadowsocks-server
-  systemctl enable shadowsocks-server
 }
+
+AddToSystemStart(){
+  {
+        echo "[Unit]"
+        echo "Description=Shadowsocks Server"
+        echo "After=network.target"
+        echo "[Service]"
+        echo "ExecStart=/usr/local/bin/ssserver -c /etc/shadowsocks.json"
+        echo "Restart=on-abort"
+        echo "[Install]"
+        echo "WantedBy=multi-user.target"
+      } >>/etc/systemd/system/shadowsocks-server.service
+
+}
+
+StartShadowsocks(){
+
+    systemctl start shadowsocks-server
+    systemctl enable shadowsocks-server
+
+}
+
 
 OpenPortsWithFirewallCmd() {
   # Open ports
@@ -117,8 +124,10 @@ OpenPortsWithFirewallCmd() {
 InputValidate
 OptimizeKernelParams
 InstallNecessaryTools
+InstallShadowsock
 BuildShadowsockConfig
-InstallShadowsockAndStart
+AddToSystemStart
+StartShadowsocks
 OpenPortsWithFirewallCmd
 if [ $model = "s" ]; then
   reboot
