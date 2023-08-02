@@ -117,11 +117,10 @@ OpenPortsWithFirewallCmd() {
 InputValidate
 OptimizeKernelParams
 InstallNecessaryTools
-sw_json_conf=BuildShadowsockConfig
-
+BuildShadowsockConfig
+InstallShadowsockAndStart
+OpenPortsWithFirewallCmd
 if [ $model = "s" ]; then
-  InstallShadowsockAndStart
-  OpenPortsWithFirewallCmd
   reboot
 elif [ $model = "ns" ]; then
   echo "Install model is: Install Nginx and ShadowSocks :)"
