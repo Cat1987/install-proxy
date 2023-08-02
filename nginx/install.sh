@@ -27,23 +27,12 @@ ConfigureLoadBalance(){
                 proxy_pass group1;
             }
         }" > /etc/nginx/tcpconf.d/ssrproxy.conf
-
-  i=1
-  while((1==1))
+  # Use comma as separator and apply as pattern
+  for val in ${ipList//,/ }
   do
-    # shellcheck disable=SC2006
-    splitchar=`echo ipList|cut -d "," -f$i`
-    if [ "$splitchar" != "" ]
-    then
-        ((i++))
-        echo "$splitchar"
-         sed -i "3i $splitchar" /etc/nginx/tcpconf.d/ssrproxy.conf
-    else
-        break
-    fi
+    echo $val
+    sed -i "3i $val;" /etc/nginx/tcpconf.d/ssrproxy.conf
   done
-
-
 }
 
 ConfigureLoadBalance
