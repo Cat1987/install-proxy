@@ -4,7 +4,7 @@ model=$1
 
 # Input Validation
 InputValidate() {
-  if [ ! $1 ]; then
+  if [ ! $model ]; then
     echo "[ERROR] You must specify which software you want to install. Eg: ./install s/ns (s -> ShadowSocks ns -> Nginx
     +ShadowSocks)"
     exit
