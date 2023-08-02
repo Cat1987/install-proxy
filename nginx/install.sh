@@ -33,7 +33,7 @@ ConfigureLoadBalance(){
   for val in ${ipList//,/ }
   do
     echo "$val"
-    sed -i "3i $val;" /etc/nginx/tcpconf.d/ssrproxy.conf
+    sed -i "3i server $val;" /etc/nginx/tcpconf.d/ssrproxy.conf
   done
   echo "include /etc/nginx/tcpconf.d/*.conf;" >> /etc/nginx/nginx.conf
 }
