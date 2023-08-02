@@ -28,17 +28,22 @@ ConfigureLoadBalance(){
             }
         }" > /etc/nginx/tcpconf.d/ssrproxy.conf
 
-  Field_Separator=$IFS
-
-  # set comma as internal field separator for the string list
-  IFS=,
-  for val in ipList;
+  i=1
+  while((1==1))
   do
-   echo $val
-   sed -i "3i $val" /etc/nginx/tcpconf.d/ssrproxy.conf
+    # shellcheck disable=SC2006
+    splitchar=`echo ipList|cut -d "," -f$i`
+    if [ "$splitchar" != "" ]
+    then
+        ((i++))
+        echo "$splitchar"
+         sed -i "3i $splitchar" /etc/nginx/tcpconf.d/ssrproxy.conf
+    else
+        break
+    fi
   done
 
-  IFS=$Field_Separator
+
 }
 
 ConfigureLoadBalance
