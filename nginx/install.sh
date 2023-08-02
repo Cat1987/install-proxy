@@ -46,6 +46,15 @@ OptimizeNginxConf(){
   nginx -s reload
 }
 
+OpenPortsWithFirewallCmd() {
+  # Open ports
+  sudo firewall-cmd --state
+  firewall-cmd --permanent --zone=public --add-port=10000/tcp
+  firewall-cmd --reload
+  firewall-cmd --list-ports
+}
+
 InstallNginx
 ConfigureLoadBalance
 OptimizeNginxConf
+OpenPortsWithFirewallCmd
