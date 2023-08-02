@@ -30,7 +30,7 @@ ConfigureLoadBalance(){
   # Use comma as separator and apply as pattern
   for val in ${ipList//,/ }
   do
-    echo $val
+    echo "$val"
     sed -i "3i $val;" /etc/nginx/tcpconf.d/ssrproxy.conf
   done
 }
