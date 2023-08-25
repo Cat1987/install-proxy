@@ -57,7 +57,7 @@ OptimizeKernelParams() {
     echo "net.ipv4.tcp_rmem = 4096 87380 67108864"
     echo "net.ipv4.tcp_wmem = 4096 65536 67108864"
     echo "net.ipv4.tcp_mtu_probing = 1"
-    echo "net.ipv4.tcp_congestion_control = hybla"
+    echo "net.ipv4.tcp_congestion_control = bbr"
   } >>/etc/sysctl.conf
 
   sysctl -p
