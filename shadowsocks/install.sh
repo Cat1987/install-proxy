@@ -29,8 +29,8 @@ OptimizeKernelParams() {
   # Optimize the kernel parameters
   echo "Optimize the kernel parameters..."
 
-  echo "Add nofile 65536 to /etc/security/limits.conf"
-  if [ $(ulimit -n) -lt 65536 ]; then
+  echo "Add nofile 500000 to /etc/security/limits.conf"
+  if [ $(ulimit -n) -lt 500000 ]; then
     {
       echo "* soft nofile 500000"
       echo "* hard nofile 500000"
