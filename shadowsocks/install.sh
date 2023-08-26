@@ -32,8 +32,8 @@ OptimizeKernelParams() {
   echo "Add nofile 65536 to /etc/security/limits.conf"
   if [ $(ulimit -n) -lt 65536 ]; then
     {
-      echo "* soft nofile 65536"
-      echo "* hard nofile 65536"
+      echo "* soft nofile 500000"
+      echo "* hard nofile 500000"
     } >>/etc/security/limits.conf
   fi
 
