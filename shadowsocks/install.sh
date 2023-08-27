@@ -34,7 +34,15 @@ OptimizeKernelParams() {
     {
       echo "* soft nofile 500000"
       echo "* hard nofile 500000"
+      echo "* soft noproc 65534"
+      echo "* hard noproc 65534"
     } >>/etc/security/limits.conf
+
+    echo "Configure kernel parameters for max users. Add parameters to /etc/profile"
+    {
+      echo "ulimit -u 65534"
+    } >>/etc/profile
+
   fi
 
   echo "Configure kernel parameters for ShadowSocks. Add parameters to /etc/sysctl.conf"
@@ -43,7 +51,7 @@ OptimizeKernelParams() {
     echo "net.core.rmem_max = 67108864"
     echo "net.core.wmem_max = 67108864"
     echo "net.core.netdev_max_backlog = 250000"
-    echo "net.core.somaxconn = 4096"
+    echo "net.core.somaxconn = 65534"
     echo "net.ipv4.tcp_syncookies = 1"
     echo "net.ipv4.tcp_tw_reuse = 1"
     echo "net.ipv4.tcp_tw_recycle = 0"
